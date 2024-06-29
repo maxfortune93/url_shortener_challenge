@@ -1,0 +1,11 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+# Ignore node_modules in both auth and url-shortener apps
+/apps/auth/node_modules
+/apps/url-shortener/node_modules
+
+# Ignore dist directories in both auth and url-shortener apps
+/apps/auth/dist
+/apps/url-shortener/dist

@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  auth:
+    build:
+      context: ./apps/auth
+    env_file: .env
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./apps/auth:/home/node/app
+      - /home/node/app/node_modules
+    depends_on:
+      - db
+    entrypoint: ["sh", "-c", "npm install && nodemon --watch src --exec 'npm run start:dev'"]
+
+  url-shortener:
+    build:
+      context: ./apps/url-shortener
+    env_file: .env
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./apps/url-shortener:/home/node/app
+      - /home/node/app/node_modules
+    depends_on:
+      - db
+      - auth
+    entrypoint: ["sh", "-c", "npm install && nodemon --watch src --exec 'npm run start:dev'"]
+
+  # gateway:
+  #   build:
+  #     context: ./gateway
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - app-network
+  #   depends_on:
+  #     - auth
+  #     - url-shortener
+
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db_url_shortener
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql  
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+
+volumes:
+  mysql_data:
+    driver: local  
