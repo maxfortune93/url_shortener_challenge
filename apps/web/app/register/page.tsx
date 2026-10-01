@@ -79,14 +79,14 @@ export default function RegisterPage() {
             placeholder="mínimo de 8 caracteres"
           />
         </div>
-        {error && <p className="text-sm font-medium text-terracotta-600">{error}</p>}
+        {error && <p className="text-sm font-medium text-forest-600">{error}</p>}
         <button type="submit" disabled={isSubmitting} className="btn-primary mt-2 w-full">
           {isSubmitting ? 'Criando conta…' : 'Criar conta'}
         </button>
       </form>
       <p className="mt-6 text-center text-sm text-ink-muted">
         Já tem uma conta?{' '}
-        <Link href="/login" className="font-medium text-terracotta-500 hover:text-terracotta-600">
+        <Link href="/login" className="font-medium text-forest-500 hover:text-forest-600">
           Entrar
         </Link>
       </p>

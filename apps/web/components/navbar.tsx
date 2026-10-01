@@ -19,7 +19,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-cream-300/60 bg-cream-100/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2 text-ink">
-          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-terracotta-400 text-white shadow-warm">
+          <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-forest-400 text-white shadow-warm">
             <LinkIcon className="h-5 w-5" />
           </span>
           <span className="font-display text-xl font-semibold tracking-tight">Curtinho</span>
@@ -30,8 +30,8 @@ export function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className={`rounded-xl px-3 py-2 font-medium transition hover:bg-terracotta-50 ${
-                  pathname === '/dashboard' ? 'text-terracotta-500' : 'text-ink-muted'
+                className={`rounded-xl px-3 py-2 font-medium transition hover:bg-forest-50 ${
+                  pathname === '/dashboard' ? 'text-forest-500' : 'text-ink-muted'
                 }`}
               >
                 Meus links
@@ -43,7 +43,7 @@ export function Navbar() {
             </>
           ) : (
             <>
-              <Link href="/login" className="rounded-xl px-3 py-2 font-medium text-ink-muted transition hover:bg-terracotta-50">
+              <Link href="/login" className="rounded-xl px-3 py-2 font-medium text-ink-muted transition hover:bg-forest-50">
                 Entrar
               </Link>
               <Link href="/register" className="btn-primary px-4 py-2 text-sm">

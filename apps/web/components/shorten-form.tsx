@@ -66,7 +66,7 @@ export function ShortenForm({ onCreated, compact }: ShortenFormProps) {
           <button
             type="button"
             onClick={() => setShowCustomAlias((value) => !value)}
-            className="text-sm font-medium text-terracotta-500 transition hover:text-terracotta-600"
+            className="text-sm font-medium text-forest-500 transition hover:text-forest-600"
           >
             {showCustomAlias ? '− usar um apelido personalizado' : '+ usar um apelido personalizado'}
           </button>
@@ -87,7 +87,7 @@ export function ShortenForm({ onCreated, compact }: ShortenFormProps) {
           )}
         </div>
 
-        {error && <p className="text-sm font-medium text-terracotta-600">{error}</p>}
+        {error && <p className="text-sm font-medium text-forest-600">{error}</p>}
       </form>
 
       {result && !compact && (

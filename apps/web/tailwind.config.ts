@@ -16,25 +16,15 @@ const config: Config = {
           muted: '#8C7B6F',
           faint: '#B8A99B',
         },
-        terracotta: {
-          50: '#FDF0E9',
-          100: '#FADFCC',
-          200: '#F2BE99',
-          300: '#E9986A',
-          400: '#E2703A',
-          500: '#D15F2B',
-          600: '#B84D21',
-          700: '#953C19',
-        },
-        amber: {
-          100: '#FCEACB',
-          300: '#F2A65A',
-          500: '#DB8A33',
-        },
-        sage: {
-          100: '#E4EEE3',
-          300: '#A9C9A4',
-          500: '#5FA776',
+        forest: {
+          50: '#EEF5F0',
+          100: '#DCEBDF',
+          200: '#B9D6C0',
+          300: '#8FB89A',
+          400: '#2F5742',
+          500: '#244432',
+          600: '#1C3527',
+          700: '#142920',
         },
       },
       fontFamily: {
@@ -42,7 +32,7 @@ const config: Config = {
         sans: ['var(--font-jakarta)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        warm: '0 20px 45px -20px rgba(177, 95, 43, 0.35)',
+        warm: '0 20px 45px -20px rgba(47, 87, 66, 0.35)',
         soft: '0 8px 24px -8px rgba(58, 46, 39, 0.12)',
       },
       borderRadius: {
@@ -51,7 +41,7 @@ const config: Config = {
       },
       backgroundImage: {
         'warm-glow':
-          'radial-gradient(60% 50% at 15% 10%, rgba(242, 166, 90, 0.35) 0%, rgba(242, 166, 90, 0) 60%), radial-gradient(55% 45% at 90% 15%, rgba(226, 112, 58, 0.25) 0%, rgba(226, 112, 58, 0) 60%)',
+          'radial-gradient(60% 50% at 15% 10%, rgba(47, 87, 66, 0.18) 0%, rgba(47, 87, 66, 0) 60%), radial-gradient(55% 45% at 90% 15%, rgba(36, 68, 50, 0.14) 0%, rgba(36, 68, 50, 0) 60%)',
       },
     },
   },

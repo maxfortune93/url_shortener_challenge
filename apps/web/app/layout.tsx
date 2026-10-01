@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Navbar />
               <main className="flex-1">{children}</main>
               <footer className="border-t border-cream-300/70 px-6 py-8 text-center text-sm text-ink-muted">
-                Feito com 🧡 por Marouane — projeto de portfólio.
+                Feito com 💚 por Marouane — projeto de portfólio.
               </footer>
             </div>
           </ToastProvider>

@@ -59,7 +59,7 @@ export default function DashboardPage() {
           <div className="animate-pulse text-sm text-ink-muted">Carregando seus links…</div>
         ) : urls.length === 0 ? (
           <div className="card flex flex-col items-center gap-2 p-10 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-terracotta-500">
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-forest-100 text-forest-500">
               <LinkIcon className="h-6 w-6" />
             </span>
             <p className="font-display text-lg font-semibold text-ink">Nada por aqui ainda</p>

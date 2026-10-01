@@ -24,11 +24,11 @@ export default function HomePage() {
   return (
     <div className="relative overflow-hidden bg-warm-glow">
       <section className="mx-auto flex max-w-3xl flex-col items-center px-6 pb-16 pt-20 text-center sm:pt-28">
-        <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-terracotta-200 bg-white/70 px-4 py-1.5 text-xs font-medium text-terracotta-500">
+        <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-forest-200 bg-white/70 px-4 py-1.5 text-xs font-medium text-forest-500">
           <SparkleIcon className="h-3.5 w-3.5" /> encurtador de links, feito com carinho
         </span>
         <h1 className="font-display text-4xl font-semibold leading-tight text-ink sm:text-5xl">
-          Links curtinhos, <span className="text-terracotta-400">memórias grandes</span>.
+          Links curtinhos, <span className="text-forest-400">memórias grandes</span>.
         </h1>
         <p className="mt-4 max-w-xl text-balance text-base text-ink-muted sm:text-lg">
           Transforme qualquer URL enorme em um link pequeno, bonito e fácil de compartilhar — e acompanhe cada clique
@@ -44,7 +44,7 @@ export default function HomePage() {
         <div className="grid gap-5 sm:grid-cols-3">
           {steps.map(({ icon: Icon, title, description }) => (
             <div key={title} className="card flex flex-col items-start gap-3 p-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-amber-100 text-terracotta-500">
+              <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-forest-100 text-forest-500">
                 <Icon className="h-5 w-5" />
               </span>
               <h3 className="font-display text-lg font-semibold text-ink">{title}</h3>

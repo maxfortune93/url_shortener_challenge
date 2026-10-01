@@ -38,7 +38,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             className={`animate-fade-up pointer-events-auto rounded-2xl px-5 py-3 text-sm font-medium shadow-warm ${
               toast.kind === 'success'
                 ? 'bg-ink text-cream-50'
-                : 'bg-terracotta-600 text-cream-50'
+                : 'bg-forest-600 text-cream-50'
             }`}
           >
             {toast.message}

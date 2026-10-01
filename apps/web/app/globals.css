@@ -8,7 +8,7 @@
   }
 
   ::selection {
-    @apply bg-terracotta-200 text-terracotta-700;
+    @apply bg-forest-200 text-forest-700;
   }
 }
 
@@ -18,15 +18,15 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-terracotta-400 px-5 py-3 font-medium text-white shadow-warm transition hover:bg-terracotta-500 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-terracotta-400;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-forest-400 px-5 py-3 font-medium text-white shadow-warm transition hover:bg-forest-500 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-forest-400;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-cream-300 bg-white px-5 py-3 font-medium text-ink transition hover:border-terracotta-200 hover:bg-terracotta-50 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-cream-300 bg-white px-5 py-3 font-medium text-ink transition hover:border-forest-200 hover:bg-forest-50 active:scale-[0.98];
   }
 
   .input-field {
-    @apply w-full rounded-2xl border border-cream-300 bg-white px-4 py-3 text-ink placeholder:text-ink-faint outline-none transition focus:border-terracotta-300 focus:ring-4 focus:ring-terracotta-100;
+    @apply w-full rounded-2xl border border-cream-300 bg-white px-4 py-3 text-ink placeholder:text-ink-faint outline-none transition focus:border-forest-300 focus:ring-4 focus:ring-forest-100;
   }
 
   .label {

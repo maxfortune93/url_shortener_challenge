@@ -48,7 +48,7 @@ export function ClicksChart({ clicks }: { clicks: Click[] }) {
               </div>
             )}
             <div
-              className="w-full rounded-t-md bg-terracotta-300 transition-colors group-hover:bg-terracotta-400"
+              className="w-full rounded-t-md bg-forest-300 transition-colors group-hover:bg-forest-400"
               style={{ height: `${Math.max(4, (day.count / max) * 80)}px` }}
             />
             <span className="text-[11px] font-medium text-ink-faint">{day.label}</span>

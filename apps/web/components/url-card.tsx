@@ -33,12 +33,12 @@ export function UrlCard({ url, onDelete, onShowStats }: UrlCardProps) {
               href={url.shortUrl}
               target="_blank"
               rel="noreferrer"
-              className="truncate font-display text-lg font-semibold text-ink hover:text-terracotta-500"
+              className="truncate font-display text-lg font-semibold text-ink hover:text-forest-500"
             >
               {url.shortUrl.replace(/^https?:\/\//, '')}
             </a>
             {isExpired && (
-              <span className="shrink-0 rounded-full bg-terracotta-100 px-2 py-0.5 text-[11px] font-medium text-terracotta-600">
+              <span className="shrink-0 rounded-full bg-forest-100 px-2 py-0.5 text-[11px] font-medium text-forest-600">
                 expirado
               </span>
             )}
@@ -53,7 +53,7 @@ export function UrlCard({ url, onDelete, onShowStats }: UrlCardProps) {
       <div className="flex shrink-0 items-center gap-2 pl-[72px] sm:pl-0">
         <button
           onClick={() => onShowStats(url)}
-          className="flex items-center gap-1.5 rounded-xl bg-amber-100 px-3 py-2 text-sm font-medium text-terracotta-600 transition hover:bg-amber-100/70"
+          className="flex items-center gap-1.5 rounded-xl bg-forest-100 px-3 py-2 text-sm font-medium text-forest-600 transition hover:bg-forest-100/70"
         >
           <ChartIcon className="h-4 w-4" />
           {url.clicksCount}
@@ -65,7 +65,7 @@ export function UrlCard({ url, onDelete, onShowStats }: UrlCardProps) {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="rounded-xl bg-terracotta-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-terracotta-600"
+              className="rounded-xl bg-forest-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-forest-600"
             >
               {isDeleting ? '...' : 'Confirmar'}
             </button>
@@ -79,7 +79,7 @@ export function UrlCard({ url, onDelete, onShowStats }: UrlCardProps) {
         ) : (
           <button
             onClick={() => setConfirming(true)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-ink-muted transition hover:bg-terracotta-50 hover:text-terracotta-500"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-ink-muted transition hover:bg-forest-50 hover:text-forest-500"
             aria-label="Excluir link"
           >
             <TrashIcon className="h-4 w-4" />

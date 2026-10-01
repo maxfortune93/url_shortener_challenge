@@ -28,7 +28,7 @@ export function StatsModal({ url, onClose }: { url: ShortUrl; onClose: () => voi
       >
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <p className="text-xs font-medium uppercase tracking-wide text-terracotta-500">Estatísticas</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-forest-500">Estatísticas</p>
             <h2 className="truncate font-display text-xl font-semibold text-ink">{url.shortUrl.replace(/^https?:\/\//, '')}</h2>
             <p className="truncate text-sm text-ink-muted">{url.originalUrl}</p>
           </div>
@@ -79,7 +79,7 @@ export function StatsModal({ url, onClose }: { url: ShortUrl; onClose: () => voi
             </div>
           </div>
         ) : (
-          <p className="mt-8 text-sm text-terracotta-600">Não foi possível carregar as estatísticas agora.</p>
+          <p className="mt-8 text-sm text-forest-600">Não foi possível carregar as estatísticas agora.</p>
         )}
       </div>
     </div>
