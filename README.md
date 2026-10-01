@@ -96,3 +96,6 @@ subir.
 ---
 
 Projeto de portfólio feito por Marouane.
+
+- LinkedIn: [linkedin.com/in/marouane-pondikpa](https://www.linkedin.com/in/marouane-pondikpa)
+- Repositório: [github.com/maxfortune93/url_shortener_challenge](https://github.com/maxfortune93/url_shortener_challenge)
