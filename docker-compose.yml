@@ -35,6 +35,27 @@ services:
       - auth
     entrypoint: ["sh", "-c", "npm install && npx prisma migrate deploy && nodemon --watch src --exec 'npm run start:dev'"]
 
+  web:
+    build:
+      context: ./apps/web
+    environment:
+      # Read by the browser, so these point at the host-exposed ports
+      # rather than the auth/url-shortener Docker service names.
+      - NEXT_PUBLIC_AUTH_API_URL=http://localhost:3000
+      - NEXT_PUBLIC_URL_SHORTENER_API_URL=http://localhost:3001
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./apps/web:/home/node/app
+      - /home/node/app/node_modules
+      - /home/node/app/.next
+    depends_on:
+      - auth
+      - url-shortener
+    entrypoint: ["sh", "-c", "npm install && npm run dev"]
+
   # gateway:
   #   build:
   #     context: ./gateway
