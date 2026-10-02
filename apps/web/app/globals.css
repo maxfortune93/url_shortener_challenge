@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cream-100 text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-forest-200 text-forest-700;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-cream-300/70 bg-white/80 shadow-soft backdrop-blur-sm;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-forest-400 px-5 py-3 font-medium text-white shadow-warm transition hover:bg-forest-500 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-forest-400;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-cream-300 bg-white px-5 py-3 font-medium text-ink transition hover:border-forest-200 hover:bg-forest-50 active:scale-[0.98];
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border border-cream-300 bg-white px-4 py-3 text-ink placeholder:text-ink-faint outline-none transition focus:border-forest-300 focus:ring-4 focus:ring-forest-100;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink-muted;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
