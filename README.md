@@ -88,9 +88,47 @@ subir.
 | `url-shortener` | `DELETE /api/urls/:id` | Remove um link (dono apenas) |
 | `url-shortener` | `GET /:slug` | Redireciona e registra o clique |
 
+## CI/CD e deploy no Render
+
+O repositório já vem com:
+
+- **`.github/workflows/ci.yml`** — a cada push/PR, roda lint + build + testes
+  dos três apps (`auth`, `url-shortener`, `web`). Em push para `main`, se tudo
+  passar, dispara o deploy no Render (job `deploy`).
+- **`render.yaml`** — um [Blueprint do Render](https://render.com/docs/blueprint-spec)
+  que descreve os 3 serviços (web, Node) + o banco Postgres gerenciado, prontos
+  pra criar tudo de uma vez.
+
+Passo a passo pra colocar no ar:
+
+1. No Render, **New +** → **Blueprint**, aponte para este repositório (branch
+   `main`). O Render lê o `render.yaml`, mostra o que vai criar (1 banco + 3
+   serviços) e só aplica quando você confirmar.
+2. Depois de criado, abra o banco **curtinho-db** → copie a *External
+   Connection String*. Em **Environment** de cada serviço, preencha o
+   `DATABASE_URL` que ficou marcado como "preencher manualmente":
+   - `curtinho-auth`: a connection string + `?schema=auth`
+   - `curtinho-url-shortener`: a mesma connection string + `?schema=url_shortener`
+3. O `JWT_SECRET` já é gerado automaticamente pelo Render e compartilhado
+   entre `curtinho-auth` e `curtinho-url-shortener` — não precisa mexer.
+4. (Opcional, pra liberar o deploy automático do CI) Em cada serviço,
+   **Settings → Deploy Hook**, copie a URL e adicione como *secret* no GitHub
+   (`Settings → Secrets and variables → Actions`):
+   - `RENDER_DEPLOY_HOOK_AUTH`
+   - `RENDER_DEPLOY_HOOK_URL_SHORTENER`
+   - `RENDER_DEPLOY_HOOK_WEB`
+
+   Sem esses secrets, o CI roda normalmente (lint/build/test) e só pula a
+   etapa de deploy.
+5. Os serviços já apontam uns para os outros pelos nomes definidos no
+   `render.yaml` (`curtinho-auth.onrender.com`, etc). Se você renomear algum
+   serviço no Render, atualize essas URLs no `render.yaml` também.
+
+O plano `free` do Render "dorme" depois de um tempo sem tráfego — a primeira
+requisição depois disso demora alguns segundos pra acordar o serviço.
+
 ## Próximos passos
 
-- Deploy público (Vercel para o frontend, Railway/Render para os serviços e o banco).
 - Ativar o API Gateway (KrakenD) em `gateway/`, hoje apenas reservado no `docker-compose.yml`.
 
 ---
