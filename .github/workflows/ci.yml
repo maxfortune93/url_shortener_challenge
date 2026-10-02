@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  auth:
+    name: auth · lint, build & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/auth/package-lock.json
+      - run: npm ci
+        working-directory: apps/auth
+      - run: npm run lint
+        working-directory: apps/auth
+      - run: npm run build
+        working-directory: apps/auth
+      - run: npm test -- --ci
+        working-directory: apps/auth
+
+  url-shortener:
+    name: url-shortener · lint, build & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/url-shortener/package-lock.json
+      - run: npm ci
+        working-directory: apps/url-shortener
+      - run: npm run lint
+        working-directory: apps/url-shortener
+      - run: npm run build
+        working-directory: apps/url-shortener
+      - run: npm test -- --ci
+        working-directory: apps/url-shortener
+
+  web:
+    name: web · lint & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+        working-directory: apps/web
+      - run: npm run lint
+        working-directory: apps/web
+      - run: npm run build
+        working-directory: apps/web
+        env:
+          NEXT_PUBLIC_AUTH_API_URL: http://localhost:3000
+          NEXT_PUBLIC_URL_SHORTENER_API_URL: http://localhost:3001
+
+  deploy:
+    name: Deploy to Render
+    needs: [auth, url-shortener, web]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy hooks
+        run: |
+          any=false
+          for hook in "$RENDER_DEPLOY_HOOK_AUTH" "$RENDER_DEPLOY_HOOK_URL_SHORTENER" "$RENDER_DEPLOY_HOOK_WEB"; do
+            if [ -n "$hook" ]; then
+              any=true
+              curl -fsS -X POST "$hook"
+            fi
+          done
+          if [ "$any" = false ]; then
+            echo "No RENDER_DEPLOY_HOOK_* secrets configured yet — skipping deploy. See README > Deploy."
+          fi
+        env:
+          RENDER_DEPLOY_HOOK_AUTH: ${{ secrets.RENDER_DEPLOY_HOOK_AUTH }}
+          RENDER_DEPLOY_HOOK_URL_SHORTENER: ${{ secrets.RENDER_DEPLOY_HOOK_URL_SHORTENER }}
+          RENDER_DEPLOY_HOOK_WEB: ${{ secrets.RENDER_DEPLOY_HOOK_WEB }}

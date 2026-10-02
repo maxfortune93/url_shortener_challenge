@@ -1,0 +1,89 @@
+# Render Blueprint — cria o Postgres + os 3 serviços de uma vez.
+# Como aplicar: no Render, "New +" → "Blueprint" → aponte para este repositório.
+# Render lê este arquivo, mostra um preview do que vai criar, e só aplica
+# quando você confirmar — nada sobe sem essa confirmação manual.
+#
+# `autoDeploy: false` em cada serviço é proposital: o deploy automático em
+# push para `main` é feito pelo workflow .github/workflows/ci.yml, que só
+# chama o Render DEPOIS que lint/build/test passarem (ver "Deploy hooks"
+# no README).
+#
+# Variáveis marcadas com `sync: false` precisam ser preenchidas manualmente
+# no painel do Render (Environment) depois que o Blueprint for aplicado —
+# veja o passo a passo na seção "Deploy" do README.
+
+databases:
+  - name: curtinho-db
+    plan: free
+    databaseName: curtinho
+    user: curtinho
+
+services:
+  - type: web
+    name: curtinho-auth
+    runtime: node
+    plan: free
+    rootDir: apps/auth
+    autoDeploy: false
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm run start:prod
+    buildFilter:
+      paths:
+        - apps/auth/**
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Connection string do banco "curtinho-db" acima, com "?schema=auth"
+      # no final. Preencher manualmente (ver README).
+      - key: DATABASE_URL
+        sync: false
+
+  - type: web
+    name: curtinho-url-shortener
+    runtime: node
+    plan: free
+    rootDir: apps/url-shortener
+    autoDeploy: false
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm run start:prod
+    buildFilter:
+      paths:
+        - apps/url-shortener/**
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      # Mesmo segredo gerado para o serviço curtinho-auth — precisa ser
+      # idêntico nos dois, já que um assina o JWT e o outro valida.
+      - key: JWT_SECRET
+        fromService:
+          type: web
+          name: curtinho-auth
+          envVarKey: JWT_SECRET
+      - key: BASE_URL
+        value: https://curtinho-url-shortener.onrender.com
+      # Mesma connection string do banco, mas com "?schema=url_shortener".
+      - key: DATABASE_URL
+        sync: false
+
+  - type: web
+    name: curtinho-web
+    runtime: node
+    plan: free
+    rootDir: apps/web
+    autoDeploy: false
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    buildFilter:
+      paths:
+        - apps/web/**
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NEXT_PUBLIC_AUTH_API_URL
+        value: https://curtinho-auth.onrender.com
+      - key: NEXT_PUBLIC_URL_SHORTENER_API_URL
+        value: https://curtinho-url-shortener.onrender.com
