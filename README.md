@@ -96,19 +96,24 @@ O repositório já vem com:
   dos três apps (`auth`, `url-shortener`, `web`). Em push para `main`, se tudo
   passar, dispara o deploy no Render (job `deploy`).
 - **`render.yaml`** — um [Blueprint do Render](https://render.com/docs/blueprint-spec)
-  que descreve os 3 serviços (web, Node) + o banco Postgres gerenciado, prontos
-  pra criar tudo de uma vez.
+  que descreve os 3 serviços (web, Node), prontos pra criar tudo de uma vez.
+  O banco não é provisionado pelo Blueprint — este projeto usa um Postgres
+  externo (ex: [Supabase](https://supabase.com)), com um schema por serviço.
 
 Passo a passo pra colocar no ar:
 
 1. No Render, **New +** → **Blueprint**, aponte para este repositório (branch
-   `main`). O Render lê o `render.yaml`, mostra o que vai criar (1 banco + 3
-   serviços) e só aplica quando você confirmar.
-2. Depois de criado, abra o banco **curtinho-db** → copie a *External
-   Connection String*. Em **Environment** de cada serviço, preencha o
-   `DATABASE_URL` que ficou marcado como "preencher manualmente":
-   - `curtinho-auth`: a connection string + `?schema=auth`
+   `main`). O Render lê o `render.yaml`, mostra os 3 serviços que vai criar e
+   só aplica quando você confirmar.
+2. Crie um projeto Postgres (Supabase ou outro) e pegue a connection string
+   dele (no Supabase: **Project Settings → Database → Connection string**).
+   Em **Environment** de cada serviço no Render, preencha o `DATABASE_URL`
+   que ficou marcado como "preencher manualmente" — **cole só o valor**, sem
+   aspas e sem o `DATABASE_URL=` na frente:
+   - `curtinho-auth`: a connection string + `?schema=auth` (ou `&schema=auth`
+     se ela já tiver outros parâmetros, como `sslmode=require`)
    - `curtinho-url-shortener`: a mesma connection string + `?schema=url_shortener`
+     (ou `&schema=url_shortener`)
 3. O `JWT_SECRET` já é gerado automaticamente pelo Render e compartilhado
    entre `curtinho-auth` e `curtinho-url-shortener` — não precisa mexer.
 4. (Opcional, pra liberar o deploy automático do CI) Em cada serviço,
@@ -125,7 +130,10 @@ Passo a passo pra colocar no ar:
    serviço no Render, atualize essas URLs no `render.yaml` também.
 
 O plano `free` do Render "dorme" depois de um tempo sem tráfego — a primeira
-requisição depois disso demora alguns segundos pra acordar o serviço.
+requisição depois disso demora alguns segundos pra acordar o serviço. O banco
+Postgres free do Render também **expira depois de 30 dias**, por isso este
+projeto usa um Postgres externo (Supabase) em vez do banco gerenciado do
+Render — assim o banco não desaparece.
 
 ## Próximos passos
 

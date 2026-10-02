@@ -1,7 +1,11 @@
-# Render Blueprint — cria o Postgres + os 3 serviços de uma vez.
+# Render Blueprint — cria os 3 serviços de uma vez.
 # Como aplicar: no Render, "New +" → "Blueprint" → aponte para este repositório.
 # Render lê este arquivo, mostra um preview do que vai criar, e só aplica
 # quando você confirmar — nada sobe sem essa confirmação manual.
+#
+# O banco Postgres NÃO é provisionado aqui — este projeto usa um Postgres
+# externo (ex: Supabase), com um schema por serviço. Veja a seção "Deploy"
+# do README para como montar o DATABASE_URL de cada um.
 #
 # `autoDeploy: false` em cada serviço é proposital: o deploy automático em
 # push para `main` é feito pelo workflow .github/workflows/ci.yml, que só
@@ -11,12 +15,6 @@
 # Variáveis marcadas com `sync: false` precisam ser preenchidas manualmente
 # no painel do Render (Environment) depois que o Blueprint for aplicado —
 # veja o passo a passo na seção "Deploy" do README.
-
-databases:
-  - name: curtinho-db
-    plan: free
-    databaseName: curtinho
-    user: curtinho
 
 services:
   - type: web
@@ -37,8 +35,9 @@ services:
         generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
-      # Connection string do banco "curtinho-db" acima, com "?schema=auth"
-      # no final. Preencher manualmente (ver README).
+      # Connection string do seu Postgres externo, com "?schema=auth"
+      # (ou "&schema=auth" se já tiver outros parâmetros) no final.
+      # Preencher manualmente (ver README).
       - key: DATABASE_URL
         sync: false
 
@@ -65,7 +64,8 @@ services:
           envVarKey: JWT_SECRET
       - key: BASE_URL
         value: https://curtinho-url-shortener.onrender.com
-      # Mesma connection string do banco, mas com "?schema=url_shortener".
+      # Mesma connection string do Postgres externo, mas com
+      # "?schema=url_shortener" (ajuste o nome do schema ao seu banco).
       - key: DATABASE_URL
         sync: false
 
